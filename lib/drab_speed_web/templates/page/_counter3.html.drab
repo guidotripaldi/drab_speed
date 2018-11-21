@@ -1,0 +1,4 @@
+<!-- Counter -->
+<div class="container-fluid counter-row">
+	<span class=""><%= @counter %></span>
+</div>

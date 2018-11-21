@@ -1,0 +1,7 @@
+
+<!-- LIST -->
+<div id="items">
+	<%= for item <- @items do %>
+		<h5><%= item %></h5>
+	<% end %>
+</div>

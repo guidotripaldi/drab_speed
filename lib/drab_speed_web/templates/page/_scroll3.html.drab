@@ -1,0 +1,9 @@
+<!-- Scroll -->
+<div class="container-fluid scroll-row">
+	<div class="col-sm-2" style='background: <%=@c1%>; height: 20px;'></div>
+	<div class="col-sm-2" style='background: <%=@c2%>; height: 20px;'></div>
+	<div class="col-sm-2" style='background: <%=@c3%>; height: 20px;'></div>
+	<div class="col-sm-2" style='background: <%=@c4%>; height: 20px;'></div>
+	<div class="col-sm-2" style='background: <%=@c5%>; height: 20px;'></div>
+	<div class="col-sm-2" style='background: <%=@c6%>; height: 20px;'></div>
+</div>

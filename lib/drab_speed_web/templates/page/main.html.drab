@@ -1,0 +1,117 @@
+
+<!-- Description -->
+<div class="container">
+	<p>Purpose of this page is benchmarking the Drab performance across three kinds of updating techniques: pokeing the main page assigns, pokeing the partial templates assigns, and setting the html by rendering the updated partial from the Commander. These techniques can show performances that can be really very different from each other, based on how complex the page is, on the size of the assignmnts, and of course the performances of the network and of the server and client computers. It is useful because before having a deeper knowledge on how Drab works, it cannot be easy to imagine that the perfonmances can change a lot based on how you design the page, so this small app can help you to simulate diferent condition and discover which technique is the best for your case.</p>
+	
+	<p>Below you can play with the examples adjusting the number of item, you will see that more items are poked to the main page, more time will take some updating operations to complete.</p>
+	
+	<p>In general, you will see that pokeing directly the assigns of the main page will give you the worst results, also when you haven't any item on the page. Pokeing the partials always give you better performances, so it is always preferable to split a page in many partials, and updating each partial indipendently from each other. The third technique gives the best results in term of speed, but add a little overhead to the code, both in the `.eex` files and in the Commander handlers, because you have to choose and apply a way to identify each element to update uniquely, and because a little bit more of code is needed in the Commander. This doesn't at all mean that the third tecnique is always preferable over the others, you have to choose carefully the right technique depending on the specific needes toy have in terms of page complexity, speed issues and code mantenibility.</p>
+	
+	<p>Three kind of test are supplied: you can increment/decrement a counter, you can start a countdown counter, and you can trig a sort of scroll animation. Each of these tests stress Drab differently one from each other, and their performances can changes dramatically by the context. Only experimenting on them, looking at the code and changing it give you the possibility of understand which tecnique can be the best for a specific requirement. Please note that the code of these examples are written to be explicit, not to be neither elegant nor smart.</p>
+</div>
+
+<!-- Examples Layout -->
+<div id="columns" class="container-fluid" id="clock">
+	<div class="row" style="">
+
+		<!-- Example 1 -->
+		<div class="col-md-4 text-center">
+			<h1>Example 1</h1>
+			<h4>Pokeing main page</h4>
+			<h4>(Slow)</h4>
+				<!-- Counter -->
+				<div id="counter-1">
+					<div id="counter-main" class="container-fluid counter-row">
+						<span class=""><%= @counter %></span>
+					</div>
+				</div>
+
+				<!-- Scroll -->
+				<div id="scroll-1">
+					<div id="scroll-main" class="container-fluid scroll-row">
+						<div class="col-sm-2" style='background: <%=@c1%>; height: 20px;'></div>
+						<div class="col-sm-2" style='background: <%=@c2%>; height: 20px;'></div>
+						<div class="col-sm-2" style='background: <%=@c3%>; height: 20px;'></div>
+						<div class="col-sm-2" style='background: <%=@c4%>; height: 20px;'></div>
+						<div class="col-sm-2" style='background: <%=@c5%>; height: 20px;'></div>
+						<div class="col-sm-2" style='background: <%=@c6%>; height: 20px;'></div>
+					</div>
+				</div>
+
+				<!-- Buttons -->
+				<div class="container-fluid buttons">
+					<button class="btn button" drab="click:counter_1('+')">+</button>
+					<button class="btn button" drab="click:counter_1('-')">-</button>
+					<button class="btn button" drab="click:count_down_1(10)">Count down</button>
+					<button class="btn button" drab="click:scroll_1()">Scroll</button>
+				</div>
+		</div>
+		
+		<!-- Example 2 -->
+		<div class="col-md-4 text-center">
+			<h1>Example 2</h1>
+			<h4>Pokeing partials</h4>
+			<h4>(faster)</h4>
+				<!-- Counter -->
+				<div id="counter-2">
+					<%= render "_counter2.html", counter: 0 %>
+				</div>
+
+				<!-- Scroll -->
+				<div id="scroll-2">
+					<%= render "_scroll2.html", c1: "", c2: "", c3: "", c4: "", c5: "", c6: ""  %>
+				</div>
+
+				<!-- Buttons -->
+				<div class="container-fluid buttons">
+					<button class="btn button" drab="click:counter_2('+')">+</button>
+					<button class="btn button" drab="click:counter_2('-')">-</button>
+					<button class="btn button" drab="click:count_down_2(10)">Count down</button>
+					<button class="btn button" drab="click:scroll_2()">Scroll</button>
+				</div>
+		</div>
+
+		<!-- Example 3 -->
+		<div class="col-md-4 text-center" >
+			<h1>Example 3</h1>
+			<h4>set_html div</h4>
+			<h4>(fastest)</h4>
+				<!-- Counter -->
+				<div id="counter-3">
+					<%= render "_counter3.html", counter: 0 %>
+				</div>
+
+				<!-- Scroll -->
+				<div id="scroll-3">
+					<%= render "_scroll3.html", c1: "", c2: "", c3: "", c4: "", c5: "", c6: ""  %>
+				</div>
+
+				<!-- Buttons -->
+				<div class="container-fluid buttons">
+					<button class="btn button" drab="click:counter_3('+')">+</button>
+					<button class="btn button" drab="click:counter_3('-')">-</button>
+					<button class="btn button" drab="click:count_down_3(10)">Count down</button>
+					<button class="btn button" drab="click:scroll_3()">Scroll</button>
+				</div>
+		</div>
+
+	</div>
+</div>
+
+
+
+<!-- LIST -->
+<div id="items" class="rounded-container" style="margin-top: 30px">
+	<h3>Items</h3>
+	<p>Changing the number of items poked, changes the performances of some Drab operations</p>
+	<button class="btn button" drab="click:update_list(0)">Clear</button>
+	<button class="btn button" drab="click:update_list(100)">100 items</button>
+	<button class="btn button" drab="click:update_list(1000)">1000 items</button>
+	<button class="btn button" drab="click:update_list(10000)">10 000 items</button>
+	<button class="btn button" drab="click:update_list(20000)">20 000 items</button>
+	<button class="btn button" drab="click:update_list(30000)">30 000 items</button>
+	<button class="btn button" drab="click:update_list(50000)">50 000 items</button>
+	<%= for item <- @items do %>
+		<h5><%= item %></h5>
+	<% end %>
+</div>

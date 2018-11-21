@@ -1,0 +1,45 @@
+.logo {
+  width: 300px;
+  height: 70px;
+  display: inline-block;
+  margin-bottom: 1em;
+  background-image: url("/images/drabspeed_logo_M.png");
+  background-size: 300px 70px;
+}
+
+
+.rounded-container {
+/* 	margin:  10px;
+ */	padding:  20px;
+	text-align: center;
+	border:  1px solid lightgray;
+	border-radius: 10px;
+}
+
+.counter-row {
+	display: block;
+	width:  220px;
+	margin:  auto;
+	padding:  10px;
+	text-align: center;
+	font-size: 40px;
+	border:  1px solid;
+	border-radius: 10px;
+	background-color: lightgray;
+	color: white;
+}
+
+
+.counter-row {
+	width: 230px;
+}
+
+.scroll-row {
+	width: 230px;
+	background-color: lightgray;
+	border-radius: 10px;
+}
+
+.buttons {
+	margin-top: 20px;
+}
